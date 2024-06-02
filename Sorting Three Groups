@@ -1,8 +1,13 @@
 Brute Force:
-1. Calculate all the subsequences
-2. check which subsequences are in non descending order
-3. calculate no of operation i.e size of original array - size of subsequence
-4. calculate the minium of these
+1. Calculate all the subsequences.
+2. check which subsequences are in non descending order.
+3. calculate no of operation i.e size of original array - size of subsequence.
+4. calculate the minium of these.
+
+Optimized approach:
+1. task should be to find the longest non decreasing subsequence.
+2. Keep a vector that keeps an eye on the longest non decreasing subsequence possible.
+3. Finally just subtract the max length from the original length and this is the answer.
 
 Brute Force Code:
 bool checkNonDec(const vector<int>& arr) {
@@ -38,4 +43,22 @@ int minimumOperations(vector<int>& nums) {
     vector<int> curr;
     int result = solve(nums, curr, 0);
     return result == INT_MAX ? -1 : result;
+}
+
+
+Optimised approach code:
+int minimumOperations(vector<int>& nums) {
+    int n = nums.size();
+    if (n == 0) return 0;
+    vector<int> dp(n, 1);
+
+    for (int i = 1; i < n; ++i) {
+        for (int j = 0; j < i; ++j) {
+            if (nums[j] <= nums[i]) {
+                dp[i] = max(dp[i], dp[j] + 1);
+            }
+        }
+    }
+    int maxLength = *max_element(dp.begin(), dp.end());
+    return n - maxLength;
 }
