@@ -1,0 +1,19 @@
+Approach : Count the number of odd number of frequencies and delete all those odd occurences like if we have "abc" as testcase we want to choose only one of abc, not all of them and +1 is to include one of these 3.
+
+Code:
+    int longestPalindrome(string s) {
+        unordered_map<int, int> umap;
+        int count = 0;
+        for(auto i: s)
+        {
+            umap[i]++;
+            if(umap[i]&1)
+                count++;
+            else
+                count--;
+        }
+        if(count>1)
+            return s.length()-count+1;
+        else
+            return s.length();        
+    }
