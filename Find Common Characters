@@ -1,0 +1,28 @@
+Approach: Maintain freq table and compare
+
+code:
+vector<string> commonChars(vector<string>& words) {
+        // ek map use kar liyo and harr string ke character par increase karna hai and then check ki kaunse characters ka count>=3 hai
+        unordered_map<char, int> umap;
+        vector<string> ans;
+        for(auto s:words[0])
+            umap[s]++;
+        for(int i=1;i<words.size();i++)
+        {
+            unordered_map<char, int> umap1;
+            for(auto s:words[i])
+                umap1[s]++;
+            for(auto pair:umap)
+                umap[pair.first]=min(umap[pair.first], umap1[pair.first]);
+        }
+        for(auto pair:umap)
+        {   
+            if(umap[pair.first]>0)
+            {
+                while(umap[pair.first]--)
+                    ans.push_back(string(1, pair.first));
+            }
+        }
+        return ans;
+
+    }
