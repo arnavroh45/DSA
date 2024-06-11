@@ -1,0 +1,15 @@
+Optimal Approach: keep a note of the minimum element and calculate the max profit side by side, finally return the max profit
+
+Code:
+int maxProfit(vector<int> &arr) {
+    int maxPro = 0;
+    int n = arr.size();
+    int minPrice = INT_MAX;
+
+    for (int i = 0; i < arr.size(); i++) {
+        minPrice = min(minPrice, arr[i]);
+        maxPro = max(maxPro, arr[i] - minPrice);
+    }
+    
+    return maxPro;
+}
