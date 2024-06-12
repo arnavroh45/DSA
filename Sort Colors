@@ -6,7 +6,8 @@ Optimal Approach - (Dutch FLag Algorithm) we keep 3 pointers low, mid and high. 
                     we check the arr[mid] everytime
                     arr[mid] == 0, swap with low and increase low and mid
                     arr[mid] == 1, increment mid
-                    arr[mid] == 2, swap mid and high, increment both
+                    arr[mid] == 2, swap mid and high, decrement high
+
 
 COde(better approach)
 void sortColors(vector<int>& nums) {
