@@ -1,0 +1,18 @@
+Approach: prefix sum
+
+Code:
+int subarraySum(vector<int>& nums, int k) {
+        unordered_map<int, int> umap;
+        umap[0]++;
+        int count = 0;
+        int sum = 0;
+        for(auto i: nums)
+        {
+            sum+=i;
+            if(umap.find(sum-k)!=umap.end())
+                count += umap.find(sum-k)->second;
+            umap[sum]++;
+        }
+        return count;
+        
+    }
