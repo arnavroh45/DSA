@@ -1,8 +1,0 @@
-Brute Force : Runa while loop until n>0, increment count and decrease the value of n by n/10
-TIme complexity : log n
-
-Optimal approach : log base 10 of a number gives how many digits it has.  if the number is a power of 10 then add 1 to it
-Time complexity - O(1)
-
-int cnt = (int)(log10(n)+1);  C++ returns the floor value, when encounters a float value
-
