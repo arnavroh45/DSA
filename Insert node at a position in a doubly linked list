@@ -1,0 +1,27 @@
+Code:
+void addNode(Node *head, int pos, int data)
+{
+   // Your code here
+   Node* root = head;
+   Node* temp = new Node(data);
+   int count = 0;
+   while(count!=pos)
+   {
+       root = root->next;
+       count++;
+   }
+   if(root->next==NULL)
+   {
+       temp->prev = root;
+       temp->next = NULL;
+       root->next = temp;
+   }  
+   else
+   {
+       temp->prev = root;
+       temp->next = root->next;
+       root->next->prev=temp;
+       root->next = temp;
+       
+   }
+}
