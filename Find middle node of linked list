@@ -1,0 +1,14 @@
+Code: 
+ListNode* middleNode(ListNode* head) {
+        if(!head || !head->next)
+            return head;
+        ListNode* root = head;
+        ListNode* root1 = head;
+        while(root1 && root1->next)
+        {
+            root = root->next;
+            root1 = root1->next->next;
+        }
+        return root;
+        
+    }
