@@ -1,0 +1,24 @@
+Watch: https://www.youtube.com/watch?si=7UreDPRjRvapeVB0&v=2Kd0KKmmHFc&feature=youtu.be
+
+ListNode *detectCycle(ListNode *head) {
+        ListNode* root = head;
+        ListNode* root1 = head;
+        bool flag = false;
+        while(root1 && root1->next)
+        {
+            root = root->next;
+            root1 = root1->next->next;
+            if(root == root1)
+            {
+                root = head;
+                while(root!=root1)
+                {
+                    root = root->next;
+                    root1 = root1->next;
+                }
+                return root;
+            }
+        }
+        return NULL;
+
+    }
