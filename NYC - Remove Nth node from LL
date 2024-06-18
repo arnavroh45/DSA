@@ -1,4 +1,6 @@
-Approach: 
+Approach: https://github.com/arnavroh45/DSA/blob/Linkedlist/2024-06-18T23_56_52.png 
+          if we travel k distance then n-k distance is remaining, and at this distance we would find the node to be deleted.
+
 
 
 Code: 
