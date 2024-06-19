@@ -1,0 +1,37 @@
+Code:
+Node* segregate(Node *head) {
+        
+        // Add code here
+        if(!head || !head->next)
+            return head;
+        Node* root = head;
+        Node* ones = new Node(-1);
+        Node* zeros = new Node(-1);
+        Node* twos = new Node(-1);
+        Node* zeros1 = zeros;
+        Node* ones1 = ones;
+        Node* twos1 = twos;
+        while(root)
+        {
+            if(root->data==1)
+            {
+                ones->next = root;
+                ones = root;
+            }
+            else if(root->data==2)
+            {   
+                twos->next = root;
+                twos = root;
+            }
+            else
+            {   
+                zeros->next = root;
+                zeros = root;
+            }
+            root = root->next;
+        }
+        twos->next = nullptr;
+        zeros->next = ones1->next?ones1->next:twos1->next;
+        ones->next = twos1->next?twos1->next:nullptr;
+        return zeros1->next;
+    }
