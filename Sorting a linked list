@@ -1,0 +1,50 @@
+Code:
+ListNode* find_middle(ListNode* head)
+    {
+        if(!head || !head->next)
+            return head;
+        ListNode* slow = head;
+        ListNode* fast = head->next;
+        while(fast && fast->next)
+        {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return slow;
+    }
+    ListNode* merge(ListNode* left, ListNode* right)
+    {
+        ListNode* temp = new ListNode(-1);
+        ListNode* head1 = temp;
+        while(left && right)
+        {
+            if(left->val > right->val)
+            {
+                head1->next = right;
+                head1 = right;
+                right = right->next;
+            }
+            else
+            {
+                head1->next = left;
+                head1 = left;
+                left = left->next;
+            }
+        }
+        if(left)
+            head1->next = left;
+        else
+            head1->next = right;
+        return temp->next;
+    }
+    ListNode* sortList(ListNode* head) {
+        if(!head || !head->next)
+            return head;
+        ListNode* midd = find_middle(head);
+        ListNode* right = midd->next;
+        midd->next = nullptr;
+        ListNode* left = head;
+        left = sortList(left);
+        right = sortList(right);
+        return  merge(left, right);
+    }
