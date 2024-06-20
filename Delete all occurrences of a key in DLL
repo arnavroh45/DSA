@@ -1,0 +1,25 @@
+Code:
+void deleteAllOccurOfX(struct Node** head_ref, int x) {
+        // Write your code here
+        Node* root = *head_ref;
+        while(root)
+        {
+            if(root->data == x)
+            {
+                if(!root->prev)
+                {
+                    root->next->prev = root->prev;
+                    *head_ref = root->next;
+                }
+                else if(!root->next)
+                    root->prev->next = root->next;
+                else
+                {
+                    root->prev->next = root->next;
+                    root->next->prev = root->prev;
+                }
+            }
+            root = root->next;
+        }
+        
+    }
