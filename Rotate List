@@ -1,0 +1,25 @@
+Catch: mkae the list circular
+
+Code:
+ListNode* rotateRight(ListNode* head, int k) {
+        if(!head || !head->next || !k)
+            return head;
+        int size =1;
+        ListNode* temp = head;
+        ListNode* newhead = head;
+        while(temp->next)
+        {
+            temp = temp->next;
+            size++;
+        }
+        temp->next = head;
+        k = k%size;
+        while(size-k)
+        {
+            temp = temp->next;
+            k++;
+        }
+        newhead = temp->next;
+        temp->next = nullptr;
+        return newhead;
+    }
