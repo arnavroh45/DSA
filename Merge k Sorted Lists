@@ -1,0 +1,45 @@
+Code:
+class compare{
+        public:
+        bool operator()(ListNode* a, ListNode* b)
+        {
+            return a->val > b->val;
+        }
+    };
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        // int k = lists.size();
+        // if (k==0) return nullptr;
+
+        // ListNode* head = merge(lists, 0, k-1);
+        // return head;
+        if(lists.empty())
+            return NULL;
+        priority_queue<ListNode*, vector<ListNode*>, compare> pq; //ascending order ke liye
+        for(int i = 0;i<lists.size();i++)
+        {
+            if(lists[i]!=NULL)
+                pq.push(lists[i]); //just pushing the heads of all the vectors
+        }
+        ListNode* head = NULL;
+        ListNode* temp1;
+        while(!pq.empty())
+        {
+            ListNode* temp = pq.top();
+            if(!head)
+            {
+                head = temp;
+                temp1 = temp;
+            }
+            else
+            {
+                temp1->next = temp;
+                temp1 = temp;
+            }
+            pq.pop();
+            if(temp->next)
+                pq.push(temp->next); //pushing the next node into the heap
+        }
+        if(!temp1)
+            temp1->next = NULL;
+        return head;
+    }
