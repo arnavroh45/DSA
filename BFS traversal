@@ -1,0 +1,33 @@
+Approach : use queue
+Code:
+vector<vector<int>> levelOrder(TreeNode* root) {
+        if(!root)
+            return {};
+        queue<TreeNode*> root1;
+        vector<vector<int>> ans = {{root->val}};
+        vector<int> anss;
+        int size;
+        root1.push(root);
+        while(!root1.empty())
+        {
+            anss.clear();
+            size = root1.size();
+            while(size--)
+            {
+                if(root1.front()->left)
+                {
+                    anss.push_back(root1.front()->left->val);
+                    root1.push(root1.front()->left);
+                }
+                if(root1.front()->right)
+                {
+                    anss.push_back(root1.front()->right->val);
+                    root1.push(root1.front()->right);
+                }
+                root1.pop();
+            }
+            if(!anss.empty())
+                ans.push_back(anss);
+        }       
+        return ans;
+    }
