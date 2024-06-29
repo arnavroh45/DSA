@@ -1,0 +1,17 @@
+Code:
+int find_height(TreeNode* root)
+    {
+        if(!root)
+            return 0;
+        int left = find_height(root->left);
+        int right = find_height(root->right);
+        if(abs(left-right)>1)
+            return -1;
+        else
+            return max(left, right)+1;
+    }
+    bool isBalanced(TreeNode* root) {
+        if(find_height(root)<0) 
+            return false;
+        return true;
+    }
