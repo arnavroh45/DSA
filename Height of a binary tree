@@ -1,0 +1,9 @@
+Code:
+int find_height(TreeNode* root)
+{
+  if(!root)
+    return 0;
+  left = find_height(root->left);
+  right = find_height(root->right);
+  return max(left, right)+1;
+}
