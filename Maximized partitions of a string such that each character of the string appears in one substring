@@ -1,0 +1,85 @@
+Approach-1: maintain a count of the character's first and last occurence index then perform intersection of intervals and that will be it
+
+Approach-2: Store the last index of occurrence of all characters in the string. Initialize an empty string ans = “” and iterate over the given string and follow the steps below: 
+Add the current character to the string ans if the last position of the character is more than the current index and increase the length of the partition.
+If the last position of the current character is equal to the current index, then print the current string stored in ans and initialize ans to “” for storing the next partition of the string.
+ 
+Code(aapproach-2):
+// C++ program for the above approach
+#include <bits/stdc++.h>
+using namespace std;
+
+// Function to print all the substrings
+void print_substring(string s)
+{
+	int n = s.size();
+
+	// Stores the substrings
+	string str = "";
+
+	// Stores last index of
+	// characters of string s
+	vector<int> ans;
+
+	if (n == 0) {
+		cout << "-1";
+		return;
+	}
+
+	// Find the last position of
+	// each character in the string
+	vector<int> last_pos(26, -1);
+
+	for (int i = n - 1; i >= 0; --i) {
+
+		// Update the last index
+		if (last_pos[s[i] - 'a'] == -1) {
+			last_pos[s[i] - 'a'] = i;
+		}
+	}
+
+	int minp = -1;
+
+	// Iterate the given string
+	for (int i = 0; i < n; ++i) {
+
+		// Get the last index of s[i]
+		int lp = last_pos[s[i] - 'a'];
+
+		// Extend the current partition
+		// characters last pos
+		minp = max(minp, lp);
+
+		// If the current pos of
+		// character equals the min pos
+		// then the end of partition
+		if (i == minp) {
+
+			// Add the respective character first
+			str += s[i];
+
+			// Store the partition's
+			// len and reset variables
+			cout << str << ' ';
+
+			// Update the minp and str
+			minp = -1;
+			str = "";
+		}
+		else {
+			str += s[i];
+		}
+	}
+}
+
+// Driver Code
+int main()
+{
+	// Input string
+	string S = "ababcbacadefegdehijhklij";
+
+	// Function call
+	print_substring(S);
+
+	return 0;
+}
