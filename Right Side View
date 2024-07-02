@@ -1,0 +1,16 @@
+Code:
+void reverse_preorder(TreeNode* root, int level, vector<int> &ans)
+    {
+        if(!root)
+            return;
+        if(level == ans.size())   
+
+            ans.push_back(root->val);
+        reverse_preorder(root->right, level+1, ans);
+        reverse_preorder(root->left, level+1, ans);
+    }
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int> ans;
+        reverse_preorder(root, 0, ans);
+        return ans;
+    }
