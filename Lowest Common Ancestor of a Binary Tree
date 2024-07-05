@@ -1,0 +1,24 @@
+Brute Force Appraoch: Check paths till both these nodes and compare between the 2 paths, now the last node which is similar in both the path is common then that is the ans;
+Optimal Force Approach: Check for right and left path of each node and compare with the 2 nodes if match return that node else return NULL, if the left and right both are null for a node that means it 
+isnt the ancestor, if left is null but right isnt then return right, vice versa for the other case, if both are not null then return the root
+
+Code for optimal approach:
+TreeNode* solve(TreeNode* root, TreeNode* p, TreeNode* q)
+    {
+        if(!root || root==p || root==q)
+            return root;
+        TreeNode* leftans = solve(root->left, p, q);
+        TreeNode* rightans = solve(root->right, p, q);
+        if(!leftans)
+            return rightans;
+        else if(!rightans)
+            return leftans;
+        else
+            return root;
+        
+    }
+
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        return solve(root, p, q);
+        
+    }
