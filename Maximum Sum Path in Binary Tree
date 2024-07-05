@@ -1,0 +1,18 @@
+Approach: in maxx variable we are storing the umbrella path, and we are returning the max path from left or right. Also we are making sure that all the negative values are ignored by taking the max between 0 
+and the calculated value.
+Code:
+int solve(TreeNode* root, int &maxx)
+    {
+        if(!root)
+            return 0;
+        int left = max(0, solve(root->left, maxx));
+        int right = max(0, solve(root->right, maxx));
+        maxx = max(maxx, left+right+root->val);
+        return max(left, right) + root->val;
+    }
+    int maxPathSum(TreeNode* root) {
+        int maxx = INT_MIN;
+        int ans = solve(root, maxx);
+        return maxx;
+        
+    }
