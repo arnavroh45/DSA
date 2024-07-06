@@ -1,0 +1,32 @@
+Approach: Traverse each level and starting index of each level must be 0, that is why we have the variable erase, lastly subtract the last indices at each level to get the widht of that particular level/
+Code:
+int widthOfBinaryTree(TreeNode* root) {
+        if(!root)
+            return 0;
+        queue<pair<TreeNode*, long long>> q;
+        q.push({root, 0});
+        int maxwidth = INT_MIN;
+        while(!q.empty())
+        {
+            int first, second;
+            int size = q.size();
+            long long erase = q.front().second;
+            for(int i = 0;i<size;i++)
+            {
+                TreeNode* curr = q.front().first;
+                long long value = q.front().second-erase;
+                q.pop();
+                if(i==0)
+                    first = value;
+                if(i==size-1)
+                    second = value;
+                if(curr->left)
+                    q.push({curr->left, value * 2 + 1});
+                if(curr->right)
+                    q.push({curr->right, value * 2 + 2});
+            }
+            maxwidth = max(maxwidth, second-first+1);
+        }
+        return maxwidth;
+        
+    }
