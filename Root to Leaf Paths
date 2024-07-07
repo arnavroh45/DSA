@@ -1,0 +1,28 @@
+Code:
+void path(Node* root, vector<int> first)
+    {
+        first.push_back(root->data);
+        auto g = root->left;
+        auto h = root->right;
+        if(!g && !h)
+        {
+            ans.push_back(first);
+            return;
+        }
+        if(g)
+            path(root->left, first);
+        if(h)
+            path(root->right, first);
+    }
+    vector<vector<int>> Paths(Node* root) {
+        // code here
+        vector<int> first;
+        if(root)
+        {
+            path(root, first);
+            return ans;
+        }
+        else
+            return {};
+        
+    }
