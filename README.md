@@ -1,5 +1,7 @@
 ## Important Notes
 
+#### Read about conversions from postorder to pre order and all
+
 ### Tree Structure and Indexing
 - **Left Child Index**: `2i + 1`
 - **Right Child Index**: `2i + 2`
