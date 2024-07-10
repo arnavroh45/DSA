@@ -1,0 +1,29 @@
+Approach : We increase the count variable whenever we encounter a variable that has not been visited after going through the dfs path for the previous nodes
+
+Code:
+void dfs(int curr, vector<int> &visited, vector<vector<int>> con)
+    {
+        visited[curr] = 1;
+
+        for(int i = 0;i<con.size();i++)
+        {
+            if(con[curr][i]==1 && !visited[i])
+                dfs(i, visited, con);
+        }
+
+    }
+    int findCircleNum(vector<vector<int>>& isConnected) {
+        int n = isConnected.size();
+        int count = 0;
+        vector<int> visited(n, 0);
+        for(int i = 0 ;i < n; i++)
+        {
+            if(!visited[i])
+            {
+                count++;
+                dfs(i, visited, isConnected);
+            }
+        }
+        return count;
+        
+    }
