@@ -1,0 +1,21 @@
+COde:
+void dfs(vector<vector<int>> &image, int r, int c, vector<vector<int>> directions, int color, int currcolor)
+    {
+        image[r][c] = color;
+        int rsize = image.size(), colsize = image[0].size();
+        for(auto it : directions)
+        {
+            int currr = r+it[0];
+            int currc = c+it[1];
+            if(currr<rsize && currr>=0 && currc>=0 && currc<colsize && image[currr][currc]==currcolor && image[currr][currc]!=color)
+            {
+                dfs(image, currr, currc, directions, color, image[currr][currc]);
+            }
+        }
+    }
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+        vector<vector<int>> directions{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+        dfs(image, sr, sc, directions, color, image[sr][sc]);
+        return image;
+        
+    }
