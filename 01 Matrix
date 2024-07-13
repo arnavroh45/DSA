@@ -1,0 +1,40 @@
+Code:
+ vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
+        queue< pair<pair<int, int>, int > > q;
+        vector<vector<int>> visited(mat.size(), vector<int>(mat[0].size(), 0));
+        vector<vector<int>> ans(mat.size(), vector<int>(mat[0].size(), 0));
+        vector<vector<int>> directions{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+        for(int  i = 0 ; i< mat.size();i++)
+        {
+            for(int j = 0;j < mat[0].size();j++)
+            {
+                if(!mat[i][j])
+                {
+                    q.push({{i, j}, 0});
+                    visited[i][j] = 1;
+                }
+                else
+                
+            }
+        }
+        while(!q.empty())
+        {
+            int r = q.front().first.first;
+            int c = q.front().first.second;
+            int dist = q.front().second;
+            q.pop();
+            ans[r][c] = dist;
+            for(auto it : directions)
+            {
+                int curr = r + it[0];
+                int curc = c + it[1];
+                if(curr>=0 && curr<mat.size() && curc>=0 && curc<mat[0].size() && !visited[curr][curc] )
+                {
+                    visited[curr][curc] = 1;
+                    q.push({{curr, curc}, dist+1});
+                }
+            }
+        } 
+        return ans;
+    }
