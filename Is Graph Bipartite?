@@ -1,0 +1,32 @@
+Approach: the catch here is , we need to check whether all the nodes of the graph can be colored in such a way that no ajdacent node has the same color
+Code:
+bool dfs(vector<int> &colored, vector<vector<int>> &graph, int color, int node)
+    {
+        if(colored[node]==color)    
+            return true;
+        else if(colored[node]==-1)
+            colored[node] = color;
+        else if(colored[node]==!color)
+            return false;
+        for(auto i : graph[node])
+        {
+            if(!dfs(colored, graph, !color, i))
+                return false;
+            if(colored[i] == color)
+                return false;
+        }
+        return true;
+                
+    }
+    bool isBipartite(vector<vector<int>>& graph) {
+        vector<int> colored(graph.size(), -1);
+        bool ans;
+        for(int i = 0; i<graph.size(); i++)
+        {
+            if(colored[i]==-1)
+                ans = dfs(colored, graph, 0, i);
+            if(!ans)
+                return false;
+        }
+        return true;
+    }
