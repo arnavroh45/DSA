@@ -1,0 +1,36 @@
+Code:
+int count = 0;
+    vector<int> solve(int d,TreeNode* root)
+    {
+        if(!root)
+            return {0};
+        if(!root->left && !root->right)
+            return {1};
+        auto l = solve(d, root->left);
+        auto r = solve(d, root->right);
+        for(auto a: l)
+        {
+            for(auto b:r)
+            {
+                if( (a&&b) && a+b<=d)
+                    count++;
+            }
+        }
+        vector<int> ans;
+        for(auto a: l)
+        {
+            if(a && a+1<d)
+                ans.push_back(a+1);
+        }
+        for(auto a: r)
+        {
+            if(a && a+1<d)
+                ans.push_back(a+1);
+        }
+        return ans;
+    }
+    int countPairs(TreeNode* root, int distance) {
+        solve(distance, root);
+        return count;
+
+    }
