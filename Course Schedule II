@@ -1,0 +1,40 @@
+Code:
+vector<int> solve(vector<int> adj[], int V, vector<int> &indegree)
+    {
+        queue<int> q;
+        for(int i = 0;i<V;i++)  
+        {
+            if(indegree[i]==0)
+                q.push(i);
+        }
+        vector<int> ans;
+        while(!q.empty())
+        {
+            int curr = q.front();
+            cout<<curr<<endl;
+            q.pop();
+            ans.push_back(curr);
+            for(auto it: adj[curr])
+            {
+                indegree[it]--;
+                if(!indegree[it])   
+                    q.push(it);
+            }
+        }
+        return ans;
+    }
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<int> adj[numCourses];
+        vector<int> indegree(numCourses, 0);
+        for(auto i : prerequisites)
+        {
+            adj[i[1]].push_back(i[0]);
+            indegree[i[0]]++;
+        }
+        vector<int> ans = solve(adj, numCourses, indegree);
+        if(ans.size()==numCourses)
+            return ans;
+        else
+            return {}; 
+        
+    }
