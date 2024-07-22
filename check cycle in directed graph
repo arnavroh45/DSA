@@ -1,0 +1,44 @@
+Appraoch: topology sort works only in DAG, directed acyclic graph, so we just check if the returned size of the topological sort is equal to the no of vertices or not
+
+COde:
+private:
+    vector<int> bfs_topo(int V, vector<int> adj[])
+    {
+        vector<int> indegree(V, 0);
+        for(int i = 0;i<V;i++)
+        {
+            for(auto it : adj[i])
+                indegree[it]++;
+        }
+        queue<int> q;
+        for(int i = 0;i<V;i++)
+        {
+            if(indegree[i]==0)    
+                q.push(i);
+        }
+        vector<int> ans;
+        while(!q.empty())
+        {
+            int curr = q.front();
+            q.pop();
+            ans.push_back(curr);
+            for(auto it : adj[curr])
+            {
+                indegree[it]--;
+                if(indegree[it]==0)
+                    q.push(it);
+            }
+        }
+        return ans;
+        
+    }
+    public:
+    // Function to detect cycle in a directed graph.
+    bool isCyclic(int V, vector<int> adj[]) {
+        // code here
+        vector<int> check = bfs_topo(V, adj);
+        if(check.size()==V)
+            return false;
+        else
+            return true;
+}
