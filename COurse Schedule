@@ -1,0 +1,42 @@
+Approach: Same as checking cycle in directed graph, as if there is a deadlock then all the courses wouldnt be completed. Make sure to use vector<int>adj[n], as in
+vector<vector<int>> random values are taken by default;
+Code:
+int bfs_topo_sort(int V, vector<int>adj[], vector<int> &indegree)
+    {
+        queue<int> q;
+        for(int i = 0; i<V;i++)
+        {
+            if(indegree[i]==0)
+                q.push(i);
+        }
+        vector<int> ans;
+        while(!q.empty())
+        {
+            int curr = q.front();
+            q.pop();
+            ans.push_back(curr);
+            for(auto i : adj[curr])
+            {
+                cout<<curr<<i<<endl;
+                indegree[i]--;
+                if(indegree[i]==0)
+                    q.push(i);
+            }
+        }
+        return ans.size();
+    }
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<int> adj[numCourses];
+        vector<int> indegree(numCourses, 0);
+        for(auto i : prerequisites)
+        {
+            adj[i[0]].push_back(i[1]);
+            indegree[i[1]]++;
+        }
+        int anss = bfs_topo_sort(numCourses, adj, indegree);
+        if(anss==numCourses)
+            return true;
+        else
+            return false;
+        
+    }
