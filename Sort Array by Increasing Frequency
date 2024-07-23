@@ -1,0 +1,22 @@
+Code:
+vector<int> frequencySort(vector<int>& nums) {
+        map<int, priority_queue<int>> umap;
+        unordered_map<int, int> mapp;
+        for(auto i : nums)
+            mapp[i]++;
+        for(auto i : mapp)
+            umap[i.second].push(i.first);
+        vector<int> ans;
+        for(auto i : umap)
+        {
+            priority_queue<int> pq = i.second;
+            while(!pq.empty())
+            {
+                int curr = pq.top();
+                pq.pop();
+                ans.insert(ans.end(), i.first, curr);
+            }
+        }
+        return ans;
+        
+    }
