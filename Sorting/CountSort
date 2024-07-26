@@ -1,0 +1,19 @@
+vector<int> sortArray(vector<int>& nums) {
+        int maxx = INT_MIN;
+        for(auto i : nums)
+            maxx = max(maxx, i);
+        vector<int> cumfreq(maxx+1, 0);
+        for(int  i = 0;i<nums.size();i++)
+        {
+            cumfreq[nums[i]]++;
+        }
+        for(int i = 1;i<=maxx;i++)
+            cumfreq[i] += cumfreq[i-1];
+        vector<int> ans(nums.size());
+        for(int i = nums.size()-1;i>=0;i--)
+        {
+            ans[cumfreq[nums[i]]-1] = nums[i];
+            cumfreq[nums[i]]--;
+        } 
+        return ans;
+    }
