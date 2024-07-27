@@ -1,0 +1,56 @@
+Code:
+void merge(vector<int> &arr, int const left, int const mid, int const right)
+    {
+        int const left_half = mid-left+1;
+        int const right_half = right-mid;
+        auto *leftt = new int[left_half];
+        auto *rightt = new int[right_half];
+        for(int i = 0 ;i<left_half;i++)
+            leftt[i] = arr[left+i];
+        for(int j = 0 ;j<right_half;j++)
+            rightt[j] = arr[mid+j+1];
+        int left_index = 0, right_index = 0;
+        int merged_array_index = left;
+        while(left_index<left_half && right_index<right_half)
+        {
+            if(leftt[left_index]<=rightt[right_index])
+            {
+                arr[merged_array_index] = leftt[left_index];
+                left_index++;
+            }
+            else
+            {
+                arr[merged_array_index] = rightt[right_index];
+                right_index++;
+            }
+            merged_array_index++;
+        }
+        while(left_index<left_half)
+        {
+            arr[merged_array_index] = leftt[left_index];
+            left_index++;
+            merged_array_index++;
+        }
+        while(right_index<right_half)
+        {
+            arr[merged_array_index] = rightt[right_index];
+            right_index++;
+            merged_array_index++;
+        }
+        delete[] leftt;
+        delete[] rightt;    
+    }
+    void mergesort(vector<int> &arr, int begin, int end)
+    {
+        if(begin>=end)
+            return;
+        int mid = begin + (end-begin)/2;
+        mergesort(arr, begin, mid);
+        mergesort(arr, mid+1, end);
+        merge(arr, begin, mid, end);
+    }
+    vector<int> sortArray(vector<int>& nums) {
+        mergesort(nums, 0, nums.size()-1);
+        return nums;
+        
+    }
