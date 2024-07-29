@@ -1,3 +1,6 @@
+Approach: in priority_queue(min heap) the variables stored are first distance till the node and then the node, taaki hum jo bhi smaller distance hai same node ka pehle usey dekhe and then the bigger distance. hum iski jagah sets bhi 
+use kar sakte, wahan par hum agar koi bada distance exista karta hai uss particular node ke liye usey erase kar dete, but usmai logn time aur lagta but faaltu ki iterations nahi hoti
+
 vector <int> dijkstra(int V, vector<vector<int>> adj[], int S)
     {
         // Code here
