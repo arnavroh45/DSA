@@ -1,0 +1,31 @@
+Memoization:
+int solve(vector<int> &nums, int index, vector<int> &dp)
+    {
+        if(index==0)
+            return 0;
+        if(dp[index]!=-1)
+            return dp[index];
+        int one = solve(nums, index-1, dp) + abs(nums[index]-nums[index-1]);
+        int two =INT_MAX;
+        if(index>1)
+            two = solve(nums, index-2, dp) + abs(nums[index-2]-nums[index]);
+        return dp[index] = min(one, two);
+    }
+    int minimumEnergy(vector<int>& nums, int n) {
+        // Code here
+        vector<int> dp(n+1, -1);
+        return solve(nums, n-1, dp);
+    }
+
+Tabulation:
+int minimumEnergy(vector<int>& nums, int n) {
+        // Code here
+        vector<int> dp(n, 0);
+        dp[0] = 0;
+        dp[1] = abs(nums[1] - nums[0]);
+        for(int i = 2;i<nums.size();i++)
+        {
+            dp[i] = min(dp[i-1]+abs(nums[i] - nums[i-1]), (dp[i-2]+abs(nums[i]-nums[i-2])));
+        }
+        return dp[nums.size()-1];
+    }
