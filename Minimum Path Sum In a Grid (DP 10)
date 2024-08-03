@@ -1,0 +1,22 @@
+Memoization
+MLE
+int solve(int row, int col, int r, int c, vector<vector<int>> dp, vector<vector<int>> grid)
+    {
+        if(row<0 || col<0)
+            return INT_MAX;
+        if(row==0 && col==0)
+            return grid[0][0];
+        if(dp[row][col]!=-1)
+            return dp[row][col];
+        int left = solve(row, col-1, r, c, dp, grid);
+        int up = solve(row-1, col, r, c, dp, grid);
+        return dp[row][col] = grid[row][col] + min(left, up);
+    }
+    int minPathSum(vector<vector<int>>& grid) {
+        vector<vector<int>> dp(grid.size(), vector<int>(grid[0].size(), -1));
+        return solve(grid.size()-1, grid[0].size()-1, grid.size(), grid[0].size(), dp, grid);
+        
+    }
+
+Tabulation:
+
