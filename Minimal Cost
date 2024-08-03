@@ -1,0 +1,20 @@
+Memoizatoin:
+int solve(int index, vector<int> &nums, int k, vector<int> &dp)
+    {
+        if(index<=0)
+            return 0;
+        if(dp[index]!=-1)
+            return dp[index];
+        int minn = INT_MAX;
+        for(int i = 1;i<=k;i++)
+        {
+            if(index-i>=0)
+                minn = min(minn, (abs(nums[index-i]-nums[index])+solve(index-i, nums, k, dp)));
+        }
+        return dp[index] = minn;
+    }
+    int minimizeCost(vector<int>& arr, int& k) {
+        vector<int> dp(arr.size(), -1);
+        return solve(arr.size()-1, arr, k, dp);
+        
+    }
