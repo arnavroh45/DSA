@@ -1,0 +1,19 @@
+Question :  we need to partition an array into subsets such that the sum of both these subsets is the minimum. All the elements are positive.
+Appraoch: we will use tabulation appproach of checking whether a target is possible by a subset of an array, lets assume we have the array as [3, 5, 8, 1, 2] and the target we are looking for is 9. So the answer then would be 
+1 (10(8, 2) and 9(1, 3, 5)). 
+when we use tabulation, we use 2d array, where the size of the row is n and the size of the column is the total sum of the array. 
+this is what the table looks like
+   0  1  2  3  4  5  6  7  8  9  10  11  12  13  14  15  16  17  18  19
+0  1  1
+1  1  
+2  1
+3  1
+4  1  1  1  1  1  1  1  1  1  1   1   1   1   1   1  1   1   1   1    1
+
+iska matlab yeh hai ki utne indexes par utna target sum possible hai, like agar example lein ki 3rd row mai 5 aur 14 mai value 1 hai iska yeh matlab hua ki first 4 elements hum lein agar toh usmai target value as 5 and 14 possible hai
+and aise hi last row ke liye, toh last row mai jo jo cell 1 honge unke corresponding column ki value as a target valid hogi, 
+toh isliye hum dp[n-1][target] return karte hain jab bhi humein check karna hai ek target value uss subset mai hai ya nahi 
+
+toh isi approach ke saath hum humaara main question solve karenge,
+humein 2 parts mai divide karna hai toh bass ek ka nikaal lete hain(s1) and doosre ka total - s1 kardenge, and same hi approach use karenge and check karenge ki kaunsi kaunsi values ke liye matrix mai value 1 hai in the (n-1)th row
+and usmai se hum total-column kardenge and usmai se bass minimum difference le lenge.
