@@ -1,0 +1,47 @@
+Approach: dono strings ke harr index ko traverse karna hai bass
+Code:
+
+int solve(string text1, string text2, int index1, int index2, vector<vector<int>>& dp)
+    {
+        int len=0;
+        if(index1==text1.size() || index2==text2.size())
+            return 0;
+        if(dp[index1][index2] != -1)
+            return dp[index1][index2];
+        if(text1[index1]==text2[index2])
+            len = 1+solve(text1, text2, index1+1, index2+1, dp);
+        else 
+        {
+            int len1 = 0+solve(text1, text2, index1+1, index2, dp);
+            int len2 = 0+solve(text1, text2, index1, index2+1, dp);
+            len = max(len1, len2);
+        }
+        return dp[index1][index2]=len;
+    }
+    int solvetab(string text1, string text2)
+    {
+        vector<vector<int>> dp(text1.size()+1, vector<int>(text2.size()+1, 0));
+        int len=0;
+        for(int index1=text1.size()-1;index1>=0;index1--)
+        {
+            for(int index2=text2.size()-1;index2>=0;index2--)
+            {
+                if(text1[index1]==text2[index2])
+                    len = 1+dp[index1+1][index2+1];
+                else 
+                {
+                    int len1 = dp[index1+1][index2];
+                    int len2 = dp[index1][index2+1];
+                    len = max(len1, len2);
+                }
+                dp[index1][index2]=len;
+            }
+        }
+        return dp[0][0];
+    }
+    int longestCommonSubsequence(string text1, string text2) {
+        // vector<vector<int>> dp(text1.size(), vector<int>(text2.size(), -1));
+        // int ans=solve(text1, text2, 0, 0, dp);
+        // return ans;     
+        return solvetab(text1, text2);  
+    }
