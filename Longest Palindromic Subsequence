@@ -1,0 +1,1 @@
+Approach: take the string s amd reverse the string s and name it as t, now calculate the longest common subsequence in s and t, and that is the answer.
