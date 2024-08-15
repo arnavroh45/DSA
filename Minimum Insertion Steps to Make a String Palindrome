@@ -1,0 +1,36 @@
+Approach: Apply the concept of Longest Palindormic Subsequence, and just subtract that answer from the sisze of the string as that much part of the string would needed to be inserted to make it a palindrome, 
+in this tabulation approach every cell means ki uss row and column tak kitna maximum palindromic subsequence possible hai, that is why loop1 ke andar mujhe jo bhi pehli value, same mili uss baad agli saari values, 
+1 ho jaayengi, 
+yeh code tune khud likha hai
+
+Code:
+int minInsertions(string s) {
+        vector<vector<int>> dp(s.size(), vector<int>(s.size(), 0));
+        string rev(s.rbegin(), s.rend());
+        for(int i = 0;i<s.size();i++) //loop1
+        {
+            if(s[i]==rev[0])
+            {
+                for(int j = i;j<s.size();j++)
+                    dp[j][0] = 1;
+            }
+            if(s[0]==rev[i])
+            {
+                for(int j = i;j<s.size();j++)
+                    dp[0][j] = 1;
+            }
+        }
+        for(int i = 1;i<s.size();i++)
+        {
+            for(int j = 1;j<s.size();j++)
+            {
+                if(s[i]==rev[j])
+                    dp[i][j] = 1 + dp[i-1][j-1];
+                else
+                    dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+
+            }
+        }
+        return s.size()-dp[s.size()-1][s.size()-1];
+
+    }
