@@ -1,0 +1,36 @@
+Approach : Longest Common Subsequence calculate karo and uska double lekar subtract it from the sum of the lengths of both the words
+
+COde:
+int minDistance(string word1, string word2) {
+        vector<vector<int>> dp(word1.size(), vector<int> (word2.size(), 0));
+        for(int i = 0;i<word2.size();i++)
+        {
+            if(word1[0]==word2[i])
+            {
+                for(int j = i;j<word2.size();j++)
+                    dp[0][j] = 1;
+            }
+        }
+        for(int i = 0;i<word1.size();i++)
+        {
+            if(word1[i]==word2[0])
+            {
+                for(int j = i;j<word1.size();j++)
+                    dp[j][0] = 1;
+            }
+        }   
+        for(int i = 1;i<word1.size();i++)
+        {
+            for(int j = 1;j<word2.size();j++)
+            {
+                if(word1[i]==word2[j])
+                    dp[i][j] = 1+dp[i-1][j-1];
+                else
+                {
+                    dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+                }
+            }
+        }     
+        return word1.size() + word2.size() - 2 * dp[word1.size()-1][word2.size()-1];
+
+    }
