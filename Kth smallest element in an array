@@ -1,4 +1,5 @@
 Approach: Take a window of k integers and take a max heap priority queue and jo bhi element top element se chota hai usey queue me daalo
+FOr kth largest element also, similar approach just take a min heap
 Code:
 int kthSmallest(int arr[], int l, int r, int k) {
         //code here
