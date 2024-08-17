@@ -1,0 +1,28 @@
+Approach: sort on the bais of endtime and check if next meeting possible or not
+Code:
+static bool comp(pair<int, int> &a, pair<int, int> &b)
+    {
+        return a.second<b.second;
+    }
+    int maxMeetings(int n, int start[], int end[]) {
+        // Your code here
+        vector<pair<int, int>> arr;
+        int  i = 0,j=1,curr=0, count=1;
+        while(i<n)
+        {
+            arr.push_back({start[i], end[i]});
+            i++;
+        }
+        sort(arr.begin(), arr.end(), comp);
+        curr=arr[0].second;
+        while(j<arr.size())
+        {
+            if(curr<arr[j].first)
+            {
+                count++;
+                curr=arr[j].second;
+            }
+            j++;
+        }
+        return count;
+    }
