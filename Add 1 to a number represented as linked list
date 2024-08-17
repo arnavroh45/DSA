@@ -1,0 +1,42 @@
+Approach: Reverse the linked list and them perform the operations
+Code:
+
+Node* reverseLL(Node* head)
+    {
+        if(!head || !head->next)
+            return head;
+        Node* prev = NULL;
+        Node* root = head;
+        while(head)
+        {
+            root = head->next;
+            head->next = prev;
+            prev = head;
+            head = root;
+        }
+        return prev;
+        
+    }
+    Node* addOne(Node *head) 
+    {
+        // Your Code here
+        Node* revhead = head;
+        revhead = reverseLL(head);
+        Node* revhead1 = revhead;
+        while(revhead->next && revhead->data==9)
+        {
+            revhead->data = 0;
+            revhead = revhead->next;
+        }
+        if(!revhead->next && revhead->data==9)
+        {
+            revhead->data = 0;
+            Node* neww = new Node(1);
+            revhead->next = neww;
+        }
+        else
+            revhead->data = revhead->data+1;
+        revhead = reverseLL(revhead1);
+        return revhead;
+        // return head of list after adding one
+    }
