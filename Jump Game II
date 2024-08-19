@@ -1,0 +1,17 @@
+Approach: we check thr fatheest possible index that can be jumped in each iteration and increment jump when we exceed that farhtest index
+Code:
+int jump(vector<int>& nums) {
+        int jumps, l ,r ;
+        jumps = l = r = 0;
+        
+        while(r < nums.size()-1){
+            int furthest = 0;
+            for(int i = l ; i <=r ; i++){
+                furthest = max(i+nums[i],furthest);
+            }
+            l = r+1;
+            r = furthest;
+            jumps++;
+        }  
+        return jumps;
+        }
