@@ -1,0 +1,25 @@
+Approach : pehle left traverse karte hain and jahaan bhi value greater hai than previous, usey ek se increment karte hai else 1 candy de dete hain. phir right se traverse karte hain and same cheez karte hain bass iss baar max value
+le lete hain aur last mai bass sum compute kar dete hain
+COde:
+int candy(vector<int>& ratings) {
+        vector<int> rating(ratings.size(), 0);
+        rating[0] = 1;
+        for(int i = 1;i<ratings.size();i++)
+        {
+            if(ratings[i]>ratings[i-1])
+                rating[i] = rating[i-1]+1;
+            else
+                rating[i] = 1;
+        }
+        rating[rating.size()-1] = max(rating[rating.size()-1], 1);
+        int sum = rating[rating.size()-1];
+        for(int i = ratings.size()-2;i>=0;i--)
+        {
+            if(ratings[i]>ratings[i+1])
+                rating[i] = max(rating[i], rating[i+1]+1);
+            else
+                rating[i] = max(rating[i], 1);
+            sum += rating[i];
+        }
+        return sum;
+    }
