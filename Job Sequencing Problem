@@ -1,0 +1,27 @@
+Approach: SOrt in decreasing order of profit and then manipualte the array to reserve a day for that task
+Code:
+static bool comp(Job a, Job b)
+    {
+        return a.profit>b.profit;
+    }
+    vector<int> JobScheduling(Job arr[], int n) 
+    { 
+        // your code here
+        sort(arr, arr+n, comp);
+        vector<int> time(n, -1);
+        int count = 0, countprof = 0;
+        for(int i = 0;i<n;i++)
+        {
+            int curr = arr[i].dead-1;
+            while(curr>=0 && time[curr]!=-1)
+                curr--;
+            if(curr>=0)
+            {
+                time[curr] = 1;
+                count++;
+                countprof += arr[i].profit;
+            }
+          
+        }
+        return {count, countprof};
+    } 
