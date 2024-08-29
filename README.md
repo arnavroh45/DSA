@@ -29,3 +29,6 @@ This technique involves using two pointers, one moving twice as fast as the othe
 #### Maximum Subarray Sum Algorithm
 When calculating the maximum subarray sum (e.g., using Kadane's Algorithm):
 - If the current sum becomes negative, reset the sum to 0.
+
+#### Subarray
+Use 2 pointer or sliding window to solve such questions
