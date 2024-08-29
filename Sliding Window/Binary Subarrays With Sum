@@ -1,0 +1,42 @@
+Prefix SUm:
+Code:
+int numSubarraysWithSum(vector<int>& nums, int goal) {
+        unordered_map<int, int> umap;
+        int sum = 0;
+        int ans = 0;
+        for(auto i : nums)
+        {
+            sum += i;
+            if(sum==goal)
+                ans++;
+            if(umap.find(sum-goal) != umap.end())
+                ans += umap[sum-goal];
+            umap[sum]++;
+        }
+        return ans;
+    }
+
+Sliding Window:
+
+Approach : we calculate all the subarrays that sum up to less than goal and goal in this function ("numSubarraysWithSum1"), that is why we do this "numSubarraysWithSum1(nums, goal) - numSubarraysWithSum1(nums, goal - 1);"
+so that we can just take only those values, whose sum is equal to target
+
+Code:
+int numSubarraysWithSum(vector<int>& nums, int goal) {
+        return numSubarraysWithSum1(nums, goal) - numSubarraysWithSum1(nums, goal - 1);
+    }
+    int numSubarraysWithSum1(vector<int>& nums, int goal) {
+        int left = 0;
+        int ans = 0;
+        int count = 0;
+        for(int i = 0;i<nums.size();i++)
+        {
+            count += nums[i];
+            while(left<=i && count>goal)
+            {
+                count -= nums[left++];
+            }
+            ans += (i - left + 1);
+        }        
+        return ans;
+    }
