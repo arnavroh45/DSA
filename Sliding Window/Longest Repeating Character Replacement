@@ -1,0 +1,22 @@
+Approach:
+
+Line 14: finding the maximum occurences of the most frequent element in the current string
+Line 15:
+checking whether the difference between the total elements in the current substring and the most frequent element is greater than k or not, this would show that the number of 
+elements to be changed are they greater than the allowed number or not, if it is greater we increase the left pointer, meaning exclude the leftmost element
+
+
+int characterReplacement(string s, int k) {
+        int i=0, j=0, ans=0, res=0;
+        unordered_map<char, int>mp;
+        for(i=0;i<s.size();i++){
+            mp[s[i]]++;
+            ans=max(ans,mp[s[i]]); 
+            if(i-j+1-ans>k){ 
+                mp[s[j]]--;
+                j++;
+            }
+            res=max(res, i-j+1);
+        }
+       return res;     
+    }
