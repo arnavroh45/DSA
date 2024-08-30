@@ -1,0 +1,20 @@
+int longestKSubstr(string s, int k) {
+    // your code here
+    unordered_map<int, int> umap;
+    int l = 0, maxx = INT_MIN;
+    for(int i = 0;i<s.size();i++)
+    {
+        umap[s[i]-'a']++;
+        while(umap.size()>k)
+        {
+            umap[s[l]-'a']--;
+            if(umap[s[l]-'a']==0)
+                umap.erase(s[l]-'a');
+            l++;
+        }
+        if(umap.size()==k)
+            maxx = max(maxx, i-l+1);
+    }
+    
+    return maxx==INT_MIN?-1:maxx;
+    }
