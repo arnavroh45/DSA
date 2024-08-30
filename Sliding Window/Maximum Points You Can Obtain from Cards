@@ -1,0 +1,14 @@
+int maxScore(vector<int>& cardPoints, int k) {
+        int n = cardPoints.size();
+        int left = 0, right = 0;
+        for(int i = 0;i<k;i++)
+            left += cardPoints[i];
+        int currmax = left;
+        for(int i = n-1;i>n-1-k;i--)
+        {
+            left -= cardPoints[k-1-(n-1-i)];
+            left += cardPoints[i];
+            currmax = max(currmax, left);
+        }
+        return currmax;
+    }   
