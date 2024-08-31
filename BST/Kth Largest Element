@@ -1,0 +1,21 @@
+Approach: Same Kth smallest element waali approach, ismai bass hum ult inorder traversal karenge, pehle right subtree then root then left subtree 
+Code:
+int count = 0;
+    int ans;
+    void reverseinorder(TreeNode* root, int k)
+    {
+        if(!root || count>k)
+            return;
+        reverseinorder(root->right, k);
+        count++;
+        if(count==k)
+        {
+            ans = root->val;
+            return;
+        }
+        reverseinorder(root->left, k);
+    }
+    int kthLargest(TreeNode* root, int k) {
+        reverseinorder(root, k);
+        return ans;
+    }
