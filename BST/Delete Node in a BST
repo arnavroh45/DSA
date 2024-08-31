@@ -1,0 +1,27 @@
+Approach: this is a recrusive solution jismai sabse pehle hum element to be deleted ko dhoondte hain and uske baad hum uske right mai jo bhi min value hai ussey swap kardete hain and phir jo min value hai usko delete karte hain
+
+
+int findMin(TreeNode* root) {
+        while (root->left) {
+            root = root->left;
+        }
+        return root->val;
+    }
+TreeNode* deleteNode(TreeNode* root, int key) {
+        if (!root) return nullptr;
+
+        if (key < root->val) {
+            root->left = deleteNode(root->left, key);
+        } else if (key > root->val) {
+            root->right = deleteNode(root->right, key);
+        } else {
+            if (!root->left && !root->right) return nullptr;
+            if (!root->left) return root->right;
+            if (!root->right) return root->left;
+
+            root->val = findMin(root->right);
+            root->right = deleteNode(root->right, root->val);
+        }
+
+        return root;
+    }
