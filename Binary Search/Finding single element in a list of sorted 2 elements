@@ -1,0 +1,31 @@
+int singleNonDuplicate(vector<int>& arr) {
+        int l = 0, h = arr.size()-1;
+        if(arr.size()==1)
+            return arr[0];
+        while(l<h)
+        {
+            bool even_half = false;
+            int mid = l + (h-l)/2;
+            if((mid-l)%2==0)
+                even_half = true;
+            
+            if(arr[mid]==arr[mid-1])
+            {
+                if(even_half)
+                    h = mid;
+                else
+                    l = mid + 1;
+            }
+            else if(arr[mid]==arr[mid+1])
+            {
+                if(even_half)
+                    l = mid + 2;
+                else
+                    h = mid - 1;
+            }
+            else 
+                return arr[mid];
+        }
+        return arr[l];
+        
+    }
