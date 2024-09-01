@@ -1,0 +1,17 @@
+Approach: 
+check for the reange of each node, if the current value of that node lies within the range specified then well and good else it is not a valid binary tree
+COde:
+bool isValidBST(TreeNode* root) 
+    {
+        return valid(root, LONG_MIN, LONG_MAX);        
+    }
+    bool valid(TreeNode* node, long minimum, long maximum) 
+    {
+        if(!node) 
+            return true;
+
+        if(!(node->val > minimum && node->val < maximum)) 
+            return false;
+
+        return valid(node->left, minimum, node->val) && valid(node->right, node->val, maximum);
+    }    
