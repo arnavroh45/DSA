@@ -1,0 +1,44 @@
+Approach: 
+we find the prev shortest element and the next shortest element for all the elements in the array and then find the length of that particular interval and multiply that with the current element as these are the subarrays, 
+where the current element would be the minimum
+
+
+Code:
+vector<int> nse(vector<int> &arr)
+    {
+        vector<int> next(arr.size());
+        stack<int> st;
+        for(int i = arr.size()-1;i>=0;i--)
+        {
+            while(!st.empty() && arr[st.top()]>=arr[i])
+                st.pop();
+            next[i] = st.empty()?arr.size():st.top();
+            st.push(i);
+        }
+        return next;
+    }
+    vector<int> psee(vector<int> &arr)
+    {
+        vector<int> prev(arr.size());
+        stack<int> st;
+        for(int i = 0;i<arr.size();i++)
+        {
+            while(!st.empty() && arr[st.top()]>arr[i])
+                st.pop();
+            prev[i] = st.empty()?-1:st.top();
+            st.push(i);
+        }
+        return prev;
+    }
+    int sumSubarrayMins(vector<int>& arr) {
+        vector<int> next = nse(arr);
+        vector<int> prev = psee(arr);
+        int total = 0;
+        int MOD = 1e9+7;
+        for(long i = 0;i<arr.size();i++)
+        {
+            long long ans =  ( (((next[i]-i) * (i-prev[i]))%MOD) *arr[i]) % MOD;
+            total = (total + ans) % MOD;
+        }
+        return total;
+    }
