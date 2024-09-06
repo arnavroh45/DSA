@@ -1,5 +1,12 @@
 ## Important Notes
 
+### Subarrays
+- **Sliding Window**
+- **Two Pointers**
+
+### Sorted Subarrays
+- **Binary Search**
+
 ### Middle Node and Loop Detection
 - **Technique**: Hare and Tortoise approach
 - **Usage**: Whenever asked to find the middle node or detect a loop in a linked list, use this approach.
