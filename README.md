@@ -12,5 +12,7 @@
 - **Postorder Traversal**: `Left -> Right -> Root`
 
 ### Views of Binary Trees
-- **Top/Bottom**: `BFS`
-- **Left/Right**: `DFS`
+- **Top**: `left and Right level Count`
+- **Left**: `PreOrder`
+- **Right**: `Reverse PreOrder`
+
