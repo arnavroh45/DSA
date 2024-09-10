@@ -1,0 +1,61 @@
+Function:
+int gcd(int a, int b)
+    {
+        if(b==0)
+            return a;
+        return gcd(b, a%b);
+    }
+
+Explanation:
+The Euclidean algorithm for finding the greatest common divisor (GCD) of two numbers is based on the principle that the GCD of two numbers does not change if the larger number is replaced by its remainder when divided by the smaller number.
+
+### **Key Idea:**
+For two numbers \(a\) and \(b\), where \(a \geq b\), the GCD of \(a\) and \(b\) is the same as the GCD of \(b\) and \(a \% b\), i.e.,
+\[
+\text{gcd}(a, b) = \text{gcd}(b, a \% b)
+\]
+This is because:
+- \(a = b \times \text{quotient} + \text{remainder}\), where \(\text{remainder} = a \% b\).
+- Any divisor of both \(a\) and \(b\) must also divide \(\text{remainder} = a \% b\), since it divides both \(a\) and \(b \times \text{quotient}\).
+
+Thus, the problem of finding the GCD of \(a\) and \(b\) is reduced to a smaller problem of finding the GCD of \(b\) and \(a \% b\). This process continues recursively until the remainder becomes 0. At that point, the GCD is the non-zero number.
+
+### **Steps:**
+1. Given two numbers \(a\) and \(b\) such that \(a \geq b\).
+2. If \(b = 0\), then the GCD is \(a\) (since the GCD of \(a\) and 0 is \(a\)).
+3. Otherwise, replace \(a\) with \(b\) and \(b\) with \(a \% b\), and repeat the process.
+4. The algorithm terminates when \(b\) becomes 0, and the current value of \(a\) is the GCD.
+
+### **Example:**
+Let's find the GCD of 56 and 15:
+
+1. Start with \(a = 56\) and \(b = 15\).
+2. Compute the remainder: \(56 \% 15 = 11\).
+   \[
+   \text{gcd}(56, 15) = \text{gcd}(15, 11)
+   \]
+3. Compute the remainder: \(15 \% 11 = 4\).
+   \[
+   \text{gcd}(15, 11) = \text{gcd}(11, 4)
+   \]
+4. Compute the remainder: \(11 \% 4 = 3\).
+   \[
+   \text{gcd}(11, 4) = \text{gcd}(4, 3)
+   \]
+5. Compute the remainder: \(4 \% 3 = 1\).
+   \[
+   \text{gcd}(4, 3) = \text{gcd}(3, 1)
+   \]
+6. Compute the remainder: \(3 \% 1 = 0\).
+   \[
+   \text{gcd}(3, 1) = \text{gcd}(1, 0)
+   \]
+7. Since \(b = 0\), the GCD is 1.
+
+Thus, the GCD of 56 and 15 is 1.
+
+### **Why does this work?**
+This works because, mathematically, any common divisor of two numbers \(a\) and \(b\) also divides the remainder when \(a\) is divided by \(b\). By continuously replacing the larger number with the remainder, the algorithm keeps reducing the size of the numbers until it reaches the point where one number divides the other perfectly, which is the greatest common divisor.
+
+### **Efficiency:**
+The reason why this method is so efficient (O(log(min(a, b)))) is that with each step, the size of the numbers is reduced significantly, particularly the remainder becomes smaller. The algorithm converges quickly due to this rapid reduction.
