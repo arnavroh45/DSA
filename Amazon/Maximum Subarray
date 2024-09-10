@@ -1,0 +1,39 @@
+Brute Force:
+calculate all the subarrays and find max of them
+
+Better(Kadane)
+int maxSubarraySum(vector<int> &arr) {
+        int sum = 0;
+        int maxx = INT_MIN;
+        for(auto i : arr)
+        {
+            sum += i;
+            maxx = max(maxx, sum);
+            if(sum<0)
+                sum = 0;
+        }
+        return maxx;
+    }
+
+Optimal (divide and conquer)
+int helper(vector<int>&v,int start,int end){
+        if(start==end)return v[start];
+        int maxleborder=INT_MIN,maxriborder=INT_MIN;
+        int mid=start+((end-start)>>1);
+        int maxleft=helper(v,start,mid);
+        int maxright=helper(v,mid+1,end);
+        int lebor=0,ribor=0;
+        for(int i=mid;i>=start;i--){
+            lebor+=v[i];
+            if(lebor>maxleborder)maxleborder=lebor;
+        }
+        for(int i=mid+1;i<=end;i++){
+            ribor+=v[i];
+            if(ribor>maxriborder)maxriborder=ribor;
+        }
+        int totalborder=maxriborder+maxleborder;
+        return max(totalborder,max(maxleft,maxright));
+    }
+    int maxSubArray(vector<int>&nums) {
+        return helper(nums,0,nums.size()-1);
+    }
