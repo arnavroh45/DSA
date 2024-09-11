@@ -1,0 +1,18 @@
+Question: 
+Given the root of a binary tree and an array of TreeNode objects nodes, return the lowest common ancestor (LCA) of all the nodes in nodes. 
+All the nodes will exist in the tree, and all values of the tree's nodes are unique.
+
+Code:
+TreeNode* lowestCommonAncestor(TreeNode* root, vector<TreeNode*>& nodes) {
+        unordered_set<int> s;
+        for (auto node : nodes) s.insert(node->val);
+        function<TreeNode*(TreeNode*)> dfs = [&](TreeNode* root) -> TreeNode* {
+            if (!root || s.count(root->val)) return root;
+            auto left = dfs(root->left);
+            auto right = dfs(root->right);
+            if (!left) return right;
+            if (!right) return left;
+            return root;
+        };
+        return dfs(root);
+    }
