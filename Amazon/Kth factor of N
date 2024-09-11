@@ -1,0 +1,39 @@
+Approach : traverse till N and see if the gcd of both the numbers is equal to the number itself, as this owuld tell us that it is a factor of n
+
+Code:
+class Solution {
+public:
+    int gcd(int a, int b)
+    {
+        if(b==0)
+            return a;
+        return gcd(b, a%b);
+    }
+    int kthFactor(int n, int k) {
+        if(k==1)
+            return 1;
+        k--;
+        for(int i = 2;i<=n;i++)
+        {
+            if(gcd(i, n)==i)
+                k--;
+            if(k==0)
+                return i;
+        }
+        return -1;
+    }
+};
+
+Code:
+ int kthFactor(int n, int k) {
+        vector<int> factors;
+        for(int i=1;i<=sqrt(n);i++){
+            if(n%i==0){
+                factors.push_back(i);
+                if(i!=(n/i))factors.push_back(n/i);
+            }
+        }
+        sort(factors.begin(),factors.end());
+        if(factors.size()<k)return -1;
+        return factors[k-1];
+    }
