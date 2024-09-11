@@ -1,0 +1,23 @@
+Code:
+long long maximumSubarraySum(vector<int>& nums, int k) {
+        unordered_map<int, int> umap;
+        int l = 0;
+        long long sum = 0;
+        long long maxx = 0;
+        for(auto i : nums)
+        {
+            umap[i]++;
+            sum += i;
+            while(umap.size()>k || umap[i]>1)
+            {
+                umap[nums[l]]--;
+                if(umap[nums[l]]==0)
+                    umap.erase(nums[l]);
+                sum -= nums[l];
+                l++;
+            }
+            if(umap.size()==k)
+                maxx = max(maxx, sum);
+        }
+        return maxx;
+    }
