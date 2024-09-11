@@ -1,0 +1,39 @@
+
+Code:
+long long numberOfWays(string s) {
+    int n=s.size();
+    vector<long long> zero_one(n),one_zero(n),a(n),b(n);
+    int ctzero=0,ctone=0;
+    for(int i=0;i<n;i++){
+        if(s[i]=='0'){
+            ctzero++;
+            one_zero[i]=ctone;
+        }
+        
+        else{
+            ctone++;
+            zero_one[i]=ctzero;
+        }
+    }
+    int ct=0,ct1=0;
+    for(int i=n-1;i>=0;i--){
+        if(s[i]=='0'){
+            ct++;
+        }
+        a[i]=ct;
+        
+        if(s[i]=='1'){
+            ct1++;
+        }
+        
+        b[i]=ct1;
+    }
+    
+    long long ans=0;
+    
+    for(int i=0;i<n-1;i++){
+        ans+=zero_one[i]*a[i+1];
+        ans+=one_zero[i]*b[i+1];
+    }        
+    return ans;
+}
