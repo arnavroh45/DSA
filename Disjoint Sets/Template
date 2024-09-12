@@ -1,0 +1,85 @@
+#include<bits/stdc++.h>
+using namespace std;
+class DisjointSet
+{
+    vector<int> parent, rank, size;
+    int n;
+    public:
+    DisjointSet(int n)
+    {
+        rank.resize(n+1, 0);
+        size.resize(n+1, 1);
+        parent.resize(n+1);
+        for(int i = 1;i<=n;i++)
+            parent[i] = i;
+    }
+    int find(int x)
+    {
+        if(x==parent[x])
+            return x;
+        return parent[x] = find(parent[x]);
+    }
+    void union_by_rank(int x, int y)
+    {
+        int par_x = find(x);
+        int par_y = find(y);
+        if(par_x==par_y)
+            return;
+        else
+        {
+            if(rank[par_x]>rank[par_y])
+                parent[par_y] = par_x;
+            else if(rank[par_x]<rank[par_y])
+                parent[par_x] = par_y;
+            else
+            {
+                parent[par_y] = par_x;
+                rank[par_x]++;
+            }
+        }
+    }
+    void union_by_size(int x, int y)
+    {
+        int par_x = find(x);
+        int par_y = find(y);
+        if(par_x==par_y)
+            return;
+        else
+        {
+            if(size[par_x]>size[par_y])
+            {
+                parent[par_y] = par_x;
+                size[par_x] += size[par_y];
+            }
+            else
+            {
+                parent[par_y] = par_x;
+                size[par_x] += size[par_y];
+            }
+        }
+    }
+};
+
+int main()
+{
+    DisjointSet ds(7);
+    ds.union_by_size(1, 2);
+    ds.union_by_size(2, 3);
+    ds.union_by_size(4, 5);
+    ds.union_by_size(6, 7);
+    ds.union_by_size(5, 6);
+
+    if(ds.find(3)==ds.find(7))
+        cout << "7 and 3 are in the same component\n";
+    else
+        cout << "7 and 3 are not in the same component\n";
+
+    ds.union_by_size(3, 7);
+
+    if(ds.find(3)==ds.find(7))
+        cout << "7 and 3 are in the same component\n";
+    else
+        cout << "7 and 3 are not in the same component\n";
+
+}
+
