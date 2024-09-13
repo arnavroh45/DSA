@@ -1,0 +1,82 @@
+Approach: 
+jinke parents union karne se pehle same honge, iska matlab uss edge ki need nahi hai and voh edge extra hai, toh hum count++ kardenge and uske baad hum total components calculate karenge and agar
+count total components se bada hai toh usko return kardenge warna -1.
+we did total-1 because those are the unconnected components
+Code:
+class DisjointSet
+    {
+        public:
+        vector<int> parent, rank, size;
+        int n;
+        DisjointSet(int n)
+        {
+            rank.resize(n+1, 0);
+            size.resize(n+1, 1);
+            parent.resize(n+1);
+            for(int i = 1;i<=n;i++)
+                parent[i] = i;
+        }
+        int find(int x)
+        {
+            if(x==parent[x])
+                return x;
+            return parent[x] = find(parent[x]);
+        }
+        void union_by_rank(int x, int y)
+        {
+            int par_x = find(x);
+            int par_y = find(y);
+            if(par_x==par_y)
+                return;
+            else
+            {
+                if(rank[par_x]>rank[par_y])
+                    parent[par_y] = par_x;
+                else if(rank[par_x]<rank[par_y])
+                    parent[par_x] = par_y;
+                else
+                {
+                    parent[par_y] = par_x;
+                    rank[par_x]++;
+                }
+            }
+        }
+        bool union_by_size(int x, int y)
+        {
+            int par_x = find(x);
+            int par_y = find(y);
+            if(par_x==par_y)
+                return false;
+            else
+            {
+                if(size[par_x]>size[par_y])
+                {
+                    parent[par_y] = par_x;
+                    size[par_x] += size[par_y];
+                }
+                else
+                {
+                    parent[par_y] = par_x;
+                    size[par_x] += size[par_y];
+                }
+            }
+            return true;
+        }
+    };
+
+    int makeConnected(int n, vector<vector<int>>& connections) {
+        DisjointSet ds(n);
+        int count = 0;
+        for(auto i : connections)
+        {
+            if(!ds.union_by_size(i[0], i[1]))
+                count++;
+        }   
+        int total = 0;
+        for(int i = 0;i<n;i++)
+        {
+            if(ds.parent[i]==i)
+                total++;
+        }
+        return count>=total-1?total-1:-1;
+    }
