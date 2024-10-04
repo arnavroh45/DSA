@@ -1,0 +1,10 @@
+
+TreeNode* invertTree(TreeNode* root) {
+        if(!root)
+            return NULL;
+        swap(root->left, root->right);
+        invertTree(root->right);
+        invertTree(root->left);
+        return root;
+        
+    }
